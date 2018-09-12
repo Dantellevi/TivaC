@@ -1,0 +1,18 @@
+
+**** Build of configuration Debug for project HEllo_World_GPIOLed ****
+
+"D:\\Program Files\\ti\\ccsv8\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../src/main.c"
+Invoking: ARM Compiler
+"D:/Program Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="D:/repos/TI/HEllo_World_GPIOLed" --include_path="D:/Program Files/Tiva" --include_path="D:/Program Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include" --define=ccs="ccs" --define=PART_TM4C1231C3PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="src/main.d_raw" --obj_directory="src"  "../src/main.c"
+Finished building: "../src/main.c"
+ 
+Building target: "HEllo_World_GPIOLed.out"
+Invoking: ARM Linker
+"D:/Program Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C1231C3PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"HEllo_World_GPIOLed.map" --heap_size=0 --stack_size=512 -i"D:/Program Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/lib" -i"D:/Program Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="HEllo_World_GPIOLed_linkInfo.xml" --rom_model -o "HEllo_World_GPIOLed.out" "./tm4c1231c3pm_startup_ccs.obj" "./src/main.obj" "../tm4c1231c3pm.cmd"  -llibc.a -l"D:/Program Files/Tiva/driverlib/ccs/Debug/driverlib.lib" 
+<Linking>
+Finished building target: "HEllo_World_GPIOLed.out"
+ 
+
+**** Build Finished ****

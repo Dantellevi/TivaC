@@ -1,0 +1,17 @@
+#include "driverlib/gpio.h"
+#include <stdbool.h> // Для поддержки типа bool, который используется в gpio
+#include "inc/hw_memmap.h" //Для поддержки деклараций пинов.
+#include "stdio.h"
+#include "stdlib.h"
+#include "stdint.h"
+
+
+
+
+void main(void)
+{
+    volatile uint32_t uint32Counter;
+
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);//для инициализации порта F пина 1 и 2 на выход
+
+}

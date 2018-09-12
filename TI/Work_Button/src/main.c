@@ -1,0 +1,37 @@
+#include <stdint.h>
+#include <stdbool.h>//поддерка bool для си
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+
+/****************************Функция задержки*****************************/
+void Delay(void)
+{
+    volatile uint32_t uint32Counter;
+    for(uint32Counter=0;uint32Counter<200000;uint32Counter++)
+    {
+
+    }
+}
+
+void main(void)
+{
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);//для инициализации порта F пина 1
+    GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_2);//инициализация пина на вход
+
+
+    while(1)
+    {
+        if(GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_2)==0x02)
+        {
+            GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1,0xFF);
+        }
+        else
+        {
+            GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1,0);
+        }
+    }
+}
+
+
+
+
