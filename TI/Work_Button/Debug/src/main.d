@@ -11,6 +11,8 @@ src/main.obj: D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/in
 src/main.obj: D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/stdbool.h
 src/main.obj: D:/ti/TivaWare_C_Series-2.1.4.178/driverlib/gpio.h
 src/main.obj: D:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_memmap.h
+src/main.obj: D:/ti/TivaWare_C_Series-2.1.4.178/driverlib/sysctl.h
+src/main.obj: D:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_types.h
 
 ../src/main.c: 
 D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/stdint.h: 
@@ -23,3 +25,5 @@ D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/sys/_std
 D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/stdbool.h: 
 D:/ti/TivaWare_C_Series-2.1.4.178/driverlib/gpio.h: 
 D:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_memmap.h: 
+D:/ti/TivaWare_C_Series-2.1.4.178/driverlib/sysctl.h: 
+D:/ti/TivaWare_C_Series-2.1.4.178/inc/hw_types.h: 

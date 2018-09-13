@@ -1,17 +1,17 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Wed Sep 12 19:24:36 2018
+>> Linked Thu Sep 13 08:35:31 2018
 
 OUTPUT FILE NAME:   <Work_Button.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000401
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000555
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00008000  000004a4  00007b5c  R  X
+  FLASH                 00000000   00008000  000005fe  00007a02  R  X
   SRAM                  20000000   00003000  00000200  00002e00  RW X
 
 
@@ -19,9 +19,9 @@ SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    000004a4   000004a4    r-x
+00000000    00000000    000005fe   000005fe    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    00000238   00000238    r-x .text
+  0000026c    0000026c    00000392   00000392    r-x .text
 20000000    20000000    00000200   00000000    rw-
   20000000    20000000    00000200   00000000    rw- .stack
 
@@ -34,19 +34,22 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     tm4c1231c3pm_startup_ccs.obj (.intvecs)
 
-.text      0    0000026c    00000238     
+.text      0    0000026c    00000392     
                   0000026c    00000132     driverlib.lib : gpio.obj (.text:GPIOPadConfigSet)
                   0000039e    00000002     --HOLE-- [fill = 0]
-                  000003a0    00000060     main.obj (.text)
-                  00000400    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
-                  00000430    0000002a     driverlib.lib : gpio.obj (.text:GPIODirModeSet)
-                  0000045a    00000018                   : gpio.obj (.text:GPIOPinTypeGPIOOutput)
-                  00000472    00000012                   : gpio.obj (.text:GPIOPinTypeGPIOInput)
-                  00000484    0000000c     tm4c1231c3pm_startup_ccs.obj (.text)
-                  00000490    00000006     driverlib.lib : gpio.obj (.text:GPIOPinRead)
-                  00000496    00000006                   : gpio.obj (.text:GPIOPinWrite)
-                  0000049c    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  000004a0    00000004                                   : exit.c.obj (.text:abort:abort)
+                  000003a0    000000f4                   : sysctl.obj (.text:SysCtlClockSet)
+                  00000494    0000008c     main.obj (.text)
+                  00000520    00000034     driverlib.lib : sysctl.obj (.text:SysCtlPeripheralEnable)
+                  00000554    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
+                  00000584    0000002a     driverlib.lib : gpio.obj (.text:GPIODirModeSet)
+                  000005ae    00000018                   : gpio.obj (.text:GPIOPinTypeGPIOOutput)
+                  000005c6    00000012                   : gpio.obj (.text:GPIOPinTypeGPIOInput)
+                  000005d8    0000000c     tm4c1231c3pm_startup_ccs.obj (.text)
+                  000005e4    00000006     driverlib.lib : gpio.obj (.text:GPIOPinRead)
+                  000005ea    00000006                   : gpio.obj (.text:GPIOPinWrite)
+                  000005f0    00000006                   : sysctl.obj (.text:SysCtlDelay)
+                  000005f6    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  000005fa    00000004                                   : exit.c.obj (.text:abort:abort)
 
 .cinit     0    00000000    00000000     UNINITIALIZED
 
@@ -67,14 +70,15 @@ MODULE SUMMARY
        Total:                         12     620       0      
                                                               
     .\src\
-       main.obj                       96     0         0      
+       main.obj                       140    0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         96     0         0      
+       Total:                         140    0         0      
                                                               
     D:/Program Files/Tiva/driverlib/ccs/Debug/driverlib.lib
        gpio.obj                       402    0         0      
+       sysctl.obj                     302    0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         402    0         0      
+       Total:                         704    0         0      
                                                               
     D:\Program Files\ti\ccsv8\tools\compiler\ti-cgt-arm_18.1.2.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
        boot_cortex_m.c.obj            48     0         0      
@@ -85,22 +89,25 @@ MODULE SUMMARY
                                                               
        Stack:                         0      0         512    
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   566    620       512    
+       Grand Total:                   912    620       512    
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 address   name                  
 -------   ----                  
-000004a1  C$$EXIT               
-000003a1  Delay                 
-00000431  GPIODirModeSet        
+000005fb  C$$EXIT               
+00000495  Delay                 
+00000585  GPIODirModeSet        
 0000026d  GPIOPadConfigSet      
-00000491  GPIOPinRead           
-00000473  GPIOPinTypeGPIOInput  
-0000045b  GPIOPinTypeGPIOOutput 
-00000497  GPIOPinWrite          
-00000485  ResetISR              
+000005e5  GPIOPinRead           
+000005c7  GPIOPinTypeGPIOInput  
+000005af  GPIOPinTypeGPIOOutput 
+000005eb  GPIOPinWrite          
+000005d9  ResetISR              
+000003a1  SysCtlClockSet        
+000005f1  SysCtlDelay           
+00000521  SysCtlPeripheralEnable
 20000200  __STACK_END           
 00000200  __STACK_SIZE          
 20000200  __STACK_TOP           
@@ -112,12 +119,12 @@ ffffffff  __binit__
 ffffffff  __c_args__            
 UNDEFED   __mpu_init            
 20000000  __stack               
-00000401  _c_int00_noinit_noargs
-0000049d  _system_pre_init      
-000004a1  abort                 
+00000555  _c_int00_noinit_noargs
+000005f7  _system_pre_init      
+000005fb  abort                 
 ffffffff  binit                 
 00000000  g_pfnVectors          
-000003c3  main                  
+000004b7  main                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -128,18 +135,21 @@ address   name
 00000000  g_pfnVectors          
 00000200  __STACK_SIZE          
 0000026d  GPIOPadConfigSet      
-000003a1  Delay                 
-000003c3  main                  
-00000401  _c_int00_noinit_noargs
-00000431  GPIODirModeSet        
-0000045b  GPIOPinTypeGPIOOutput 
-00000473  GPIOPinTypeGPIOInput  
-00000485  ResetISR              
-00000491  GPIOPinRead           
-00000497  GPIOPinWrite          
-0000049d  _system_pre_init      
-000004a1  C$$EXIT               
-000004a1  abort                 
+000003a1  SysCtlClockSet        
+00000495  Delay                 
+000004b7  main                  
+00000521  SysCtlPeripheralEnable
+00000555  _c_int00_noinit_noargs
+00000585  GPIODirModeSet        
+000005af  GPIOPinTypeGPIOOutput 
+000005c7  GPIOPinTypeGPIOInput  
+000005d9  ResetISR              
+000005e5  GPIOPinRead           
+000005eb  GPIOPinWrite          
+000005f1  SysCtlDelay           
+000005f7  _system_pre_init      
+000005fb  C$$EXIT               
+000005fb  abort                 
 20000000  __stack               
 20000200  __STACK_END           
 20000200  __STACK_TOP           
@@ -151,4 +161,4 @@ ffffffff  __c_args__
 ffffffff  binit                 
 UNDEFED   __mpu_init            
 
-[26 symbols]
+[29 symbols]
