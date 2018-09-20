@@ -47,7 +47,7 @@ void main(void)
     //Конфигурация таймера(режим работы таймера,два таймера с половинной шириной,даймер с половинной шириной)
     TimerConfigure(TIMER0_BASE, TIMER_CFG_SPLIT_PAIR | TIMER_CFG_B_ONE_SHOT);
     //задание предделителя
-    //TimerPrescaleSet (TIMER0_BASE, TIMER_A, 16);
+    TimerPrescaleSet (TIMER0_BASE, TIMER_A, 16);
     //Set the Timer0B load value to 1ms.количество тактов до которых нужно досчитывать(1/FCu=6.25e-8,1ms/6.25e-8=16000)=>16000000/1000=16000
     TimerLoadSet(TIMER0_BASE,TIMER_B,SysCtlClockGet() / 1000);
     //
