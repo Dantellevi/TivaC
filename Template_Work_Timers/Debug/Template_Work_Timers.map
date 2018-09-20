@@ -1,17 +1,17 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Wed Sep 19 18:06:55 2018
+>> Linked Thu Sep 20 10:48:00 2018
 
 OUTPUT FILE NAME:   <Template_Work_Timers.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000705
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000729
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00008000  00000810  000077f0  R  X
+  FLASH                 00000000   00008000  00000842  000077be  R  X
   SRAM                  20000000   00003000  00000200  00002e00  RW X
 
 
@@ -19,10 +19,10 @@ SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    00000810   00000810    r-x
+00000000    00000000    00000844   00000844    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    00000538   00000538    r-x .text
-  000007a4    000007a4    0000006c   0000006c    r-- .const
+  0000026c    0000026c    0000056a   0000056a    r-x .text
+  000007d8    000007d8    0000006c   0000006c    r-- .const
 20000000    20000000    00000200   00000000    rw-
   20000000    20000000    00000200   00000000    rw- .stack
 
@@ -35,28 +35,29 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     tm4c1230c3pm_startup_ccs.obj (.intvecs)
 
-.text      0    0000026c    00000538     
-                  0000026c    00000198     Timers.obj (.text)
-                  00000404    00000110     driverlib.lib : sysctl.obj (.text:SysCtlClockGet)
-                  00000514    000000f4                   : sysctl.obj (.text:SysCtlClockSet)
-                  00000608    00000068     main.obj (.text)
-                  00000670    00000060     driverlib.lib : timer.obj (.text:TimerConfigure)
-                  000006d0    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
-                  00000704    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
-                  00000734    00000012     driverlib.lib : timer.obj (.text:TimerLoadSet)
-                  00000746    00000012                   : timer.obj (.text:TimerPrescaleSet)
-                  00000758    00000010                   : interrupt.obj (.text:IntMasterEnable)
-                  00000768    0000000c                   : cpu.obj (.text:CPUcpsie)
-                  00000774    0000000c     tm4c1230c3pm_startup_ccs.obj (.text)
-                  00000780    0000000a     driverlib.lib : timer.obj (.text:TimerIntDisable)
-                  0000078a    00000008                   : timer.obj (.text:TimerIntEnable)
-                  00000792    00000006                   : sysctl.obj (.text:SysCtlDelay)
-                  00000798    00000004                   : timer.obj (.text:TimerIntClear)
-                  0000079c    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  000007a0    00000004                                   : exit.c.obj (.text:abort:abort)
+.text      0    0000026c    0000056a     
+                  0000026c    000001b0     Timers.obj (.text)
+                  0000041c    00000110     driverlib.lib : sysctl.obj (.text:SysCtlClockGet)
+                  0000052c    000000f4                   : sysctl.obj (.text:SysCtlClockSet)
+                  00000620    00000074     main.obj (.text)
+                  00000694    00000060     driverlib.lib : timer.obj (.text:TimerConfigure)
+                  000006f4    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
+                  00000728    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
+                  00000758    00000012     driverlib.lib : timer.obj (.text:TimerLoadSet)
+                  0000076a    00000012                   : timer.obj (.text:TimerPrescaleSet)
+                  0000077c    00000010                   : interrupt.obj (.text:IntMasterEnable)
+                  0000078c    0000000e                   : timer.obj (.text:TimerEnable)
+                  0000079a    0000000c                   : cpu.obj (.text:CPUcpsie)
+                  000007a6    0000000c     tm4c1230c3pm_startup_ccs.obj (.text)
+                  000007b2    0000000a     driverlib.lib : timer.obj (.text:TimerIntDisable)
+                  000007bc    00000008                   : timer.obj (.text:TimerIntEnable)
+                  000007c4    00000006                   : sysctl.obj (.text:SysCtlDelay)
+                  000007ca    00000004                   : timer.obj (.text:TimerIntClear)
+                  000007ce    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  000007d2    00000004                                   : exit.c.obj (.text:abort:abort)
 
-.const     0    000007a4    0000006c     
-                  000007a4    0000006c     driverlib.lib : sysctl.obj (.const:g_pui32Xtals)
+.const     0    000007d8    0000006c     
+                  000007d8    0000006c     driverlib.lib : sysctl.obj (.const:g_pui32Xtals)
 
 .cinit     0    00000000    00000000     UNINITIALIZED
 
@@ -77,18 +78,18 @@ MODULE SUMMARY
        Total:                         12     620       0      
                                                               
     .\src\
-       Timers.obj                     408    0         0      
-       main.obj                       104    0         0      
+       Timers.obj                     432    0         0      
+       main.obj                       116    0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         512    0         0      
+       Total:                         548    0         0      
                                                               
     D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib
        sysctl.obj                     574    108       0      
-       timer.obj                      154    0         0      
+       timer.obj                      168    0         0      
        interrupt.obj                  16     0         0      
        cpu.obj                        12     0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         756    108       0      
+       Total:                         770    108       0      
                                                               
     D:\Program Files\ti\ccsv8\tools\compiler\ti-cgt-arm_18.1.2.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
        boot_cortex_m.c.obj            48     0         0      
@@ -99,31 +100,33 @@ MODULE SUMMARY
                                                               
        Stack:                         0      0         512    
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   1336   728       512    
+       Grand Total:                   1386   728       512    
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 address   name                  
 -------   ----                  
-000007a1  C$$EXIT               
-00000769  CPUcpsie              
+000007d3  C$$EXIT               
+0000079b  CPUcpsie              
 000002e1  Innterupt_TIM         
-00000759  IntMasterEnable       
-00000775  ResetISR              
+0000077d  IntMasterEnable       
+000007a7  ResetISR              
 00000393  SetLoad_TIM           
 0000033b  SetPrescaler_TIM      
-00000405  SysCtlClockGet        
-00000515  SysCtlClockSet        
-00000793  SysCtlDelay           
-000006d1  SysCtlPeripheralEnable
-00000609  Timer0BIntHandler     
-00000671  TimerConfigure        
-00000799  TimerIntClear         
-00000781  TimerIntDisable       
-0000078b  TimerIntEnable        
-00000735  TimerLoadSet          
-00000747  TimerPrescaleSet      
+0000041d  SysCtlClockGet        
+0000052d  SysCtlClockSet        
+000007c5  SysCtlDelay           
+000006f5  SysCtlPeripheralEnable
+000003eb  TIM_Initilize         
+00000621  Timer0BIntHandler     
+00000695  TimerConfigure        
+0000078d  TimerEnable           
+000007cb  TimerIntClear         
+000007b3  TimerIntDisable       
+000007bd  TimerIntEnable        
+00000759  TimerLoadSet          
+0000076b  TimerPrescaleSet      
 0000026d  Timer_init            
 20000200  __STACK_END           
 00000200  __STACK_SIZE          
@@ -136,12 +139,12 @@ ffffffff  __binit__
 ffffffff  __c_args__            
 UNDEFED   __mpu_init            
 20000000  __stack               
-00000705  _c_int00_noinit_noargs
-0000079d  _system_pre_init      
-000007a1  abort                 
+00000729  _c_int00_noinit_noargs
+000007cf  _system_pre_init      
+000007d3  abort                 
 ffffffff  binit                 
 00000000  g_pfnVectors          
-00000617  main                  
+0000062f  main                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -155,25 +158,27 @@ address   name
 000002e1  Innterupt_TIM         
 0000033b  SetPrescaler_TIM      
 00000393  SetLoad_TIM           
-00000405  SysCtlClockGet        
-00000515  SysCtlClockSet        
-00000609  Timer0BIntHandler     
-00000617  main                  
-00000671  TimerConfigure        
-000006d1  SysCtlPeripheralEnable
-00000705  _c_int00_noinit_noargs
-00000735  TimerLoadSet          
-00000747  TimerPrescaleSet      
-00000759  IntMasterEnable       
-00000769  CPUcpsie              
-00000775  ResetISR              
-00000781  TimerIntDisable       
-0000078b  TimerIntEnable        
-00000793  SysCtlDelay           
-00000799  TimerIntClear         
-0000079d  _system_pre_init      
-000007a1  C$$EXIT               
-000007a1  abort                 
+000003eb  TIM_Initilize         
+0000041d  SysCtlClockGet        
+0000052d  SysCtlClockSet        
+00000621  Timer0BIntHandler     
+0000062f  main                  
+00000695  TimerConfigure        
+000006f5  SysCtlPeripheralEnable
+00000729  _c_int00_noinit_noargs
+00000759  TimerLoadSet          
+0000076b  TimerPrescaleSet      
+0000077d  IntMasterEnable       
+0000078d  TimerEnable           
+0000079b  CPUcpsie              
+000007a7  ResetISR              
+000007b3  TimerIntDisable       
+000007bd  TimerIntEnable        
+000007c5  SysCtlDelay           
+000007cb  TimerIntClear         
+000007cf  _system_pre_init      
+000007d3  C$$EXIT               
+000007d3  abort                 
 20000000  __stack               
 20000200  __STACK_END           
 20000200  __STACK_TOP           
@@ -185,4 +190,4 @@ ffffffff  __c_args__
 ffffffff  binit                 
 UNDEFED   __mpu_init            
 
-[36 symbols]
+[38 symbols]
