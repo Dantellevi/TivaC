@@ -3,6 +3,65 @@
 
 
 
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer0BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+
+
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer1BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer2BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER2_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer3BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER3_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer4BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER4_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer5BIntHandler(void)
+{
+    // Очистка флага прерывания таймера
+    TimerIntClear(TIMER5_BASE, TIMER_TIMB_TIMEOUT);
+
+
+}
+
+
 /**********************Функция инициализации таймера для заданного режима**********/
 /*
  * Параметры:
@@ -181,23 +240,255 @@ RESULT_TIM SetLoad_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
 /*==================================================2-Вариант==============================================*/
 
 
-RESULT_TIM TIM_Initilize(uint8_t N_tim,uint8_t Mode,uint8_t channel,uint8_t HalfMode)
+/*************************************Второй вариант инициализации**********************/
+RESULT_TIM TIM_Initilize(uint8_t N_tim,uint8_t Mode,uint8_t channel,uint8_t HalfMode,uint8_t full_Mode,uint8_t cap_Mode)
 {
-    /*
-    (N_Tim!=TIM0||N_Tim!=TIM1||N_Tim!=TIM2||N_Tim!=TIM3||N_Tim!=TIM4||N_Tim!=TIM5)||(Mode)
 
-    if()
+
+
+    if((N_tim!=TIMER0_BASE||N_tim!=TIMER1_BASE||N_tim!=TIMER2_BASE||N_tim!=TIMER3_BASE||N_tim!=TIMER4_BASE||N_tim!=TIMER5_BASE)||(Mode!=TIM_PWM||Mode!=TIM_HalfMode ||Mode!=TIM_FullMode||Mode!=TIM_CaptureMode))
     {
         return TIM_ERROR;
     }
     else
     {
 
+        switch(Mode)
+        {
+        //---------------------------ШИМ--------------------------
+            case TIM_PWM:
+            {
+                if(channel==CHANNEL_A)
+                {
+                    TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PWM);
+                }
+                else if(channel==CHANNEL_B)
+                {
+                    TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_PWM);
+                }
+                else
+                {
+                    return TIM_ERROR;
+                }
+                break;
+            }
+            //----------------------------------------------------
+            //---------------------------режим полуразмерности--------------------------
+            case TIM_HalfMode:
+            {
+
+                if(channel==CHANNEL_A)
+                {
+                   switch(HalfMode)
+                   {
+                       case A_ONE_SHOT:
+                       {
+
+                           TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_ONE_SHOT);
+                           break;
+                       }
+                       case A_ONE_SHOT_UP:
+                       {
+                           TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_ONE_SHOT_UP);
+                           break;
+                       }
+                       case A_PERIODIC:
+                       {
+                           TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PERIODIC);
+                           break;
+                       }
+
+                       case A_PERIODIC_UP:
+                       {
+                           TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PERIODIC_UP);
+                           break;
+                       }
+
+                       default:
+                       {
+                           return TIM_ERROR;
+                       }
+
+
+                   }
+                }
+                else if(channel==CHANNEL_B)
+                {
+                    switch(HalfMode)
+                    {
+                      case B_ONE_SHOT:
+                       {
+                           TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_ONE_SHOT);
+                          break;
+                        }
+                      case B_ONE_SHOT_UP:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_ONE_SHOT_UP);
+                          break;
+                        }
+                      case B_PERIODIC:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_PERIODIC);
+                           break;
+                        }
+
+                      case B_PERIODIC_UP:
+                        {
+                          TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_PERIODIC_UP);
+                          break;
+                        }
+
+                      default:
+                         {
+                           return TIM_ERROR;
+                         }
+
+                     }
+                }
+                else
+                {
+                    return TIM_ERROR;
+                }
+
+                break;
+            }
+            //--------------------------------------------------------------------------
+
+            case TIM_FullMode:
+            {
+                switch(full_Mode)
+                {
+                    case FULL_ONE_SHOT:
+                    {
+                        TimerConfigure(N_tim,TIMER_CFG_ONE_SHOT);
+                        break;
+                    }
+                    case FULL_ONE_SHOT_UP:
+                    {
+                        TimerConfigure(N_tim,TIMER_CFG_ONE_SHOT_UP);
+                        break;
+                    }
+                    case FULL_ONE_PERIODIC:
+                    {
+                        TimerConfigure(N_tim,TIMER_CFG_PERIODIC);
+                        break;
+                    }
+                    case FULL_ONE_PERIODIC_UP:
+                    {
+                        TimerConfigure(N_tim,TIMER_CFG_PERIODIC_UP);
+                        break;
+                    }
+                    case FULL_ONE_RTC:
+                    {
+                        TimerConfigure(N_tim,TIMER_CFG_RTC);
+                        break;
+                    }
+                    default:
+                    {
+                        return TIM_ERROR;
+                    }
+                }
+                break;
+            }
+            //-----------------------------------------------------------
+
+
+            case TIM_CaptureMode:
+            {
+                if(channel==CHANNEL_A)
+                 {
+
+                    switch(cap_Mode)
+                    {
+                        case CAP_COUNT:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_CAP_COUNT);
+                            break;
+                        }
+
+                        case CAP_COUNT_UP:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_CAP_COUNT_UP);
+                            break;
+                        }
+
+                        case CAP_TIME:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_CAP_TIME);
+                            break;
+                        }
+
+                        case CAP_TIME_UP:
+                        {
+                            TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_CAP_TIME_UP);
+                            break;
+                        }
+
+
+                        default:
+                        {
+                            return TIM_ERROR;
+                        }
+                    }
+
+                   TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_A_PWM);
+                 }
+                else if(channel==CHANNEL_B)
+                 {
+                    switch(cap_Mode)
+                                        {
+                                            case CAP_COUNT:
+                                            {
+                                                TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_CAP_COUNT);
+                                                break;
+                                            }
+
+                                            case CAP_COUNT_UP:
+                                            {
+                                                TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_CAP_COUNT_UP);
+                                                break;
+                                            }
+
+                                            case CAP_TIME:
+                                            {
+                                                TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_CAP_TIME);
+                                                break;
+                                            }
+
+                                            case CAP_TIME_UP:
+                                            {
+                                                TimerConfigure(N_tim,TIMER_CFG_SPLIT_PAIR|TIMER_CFG_B_CAP_TIME_UP);
+                                                break;
+                                            }
+
+
+                                            default:
+                                            {
+                                                return TIM_ERROR;
+                                            }
+
+                                        }
+
+
+
+                 }
+                 else
+                 {
+                    return TIM_ERROR;
+                 }
+                break;
+            }
+
+
+
+
+
+        }
+
+
         return TIM_OK;
     }
-    */
 
-    return TIM_OK;
 }
 
 

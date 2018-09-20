@@ -2,13 +2,7 @@
 
 
 
-void Timer0BIntHandler(void)
-{
-    // Очистка флага прерывания таймера
-    TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
 
-
-}
 
 
 

@@ -17,13 +17,7 @@ typedef enum
 
 /***************************Дефайны для универсальной работы с таймерами*****************/
 
-/*************************Номера таймеров**********/
-#define TIM0 0
-#define TIM1 1
-#define TIM2 2
-#define TIM3 3
-#define TIM4 4
-#define TIM5 5
+
 /*************************Режимы работы**************/
 #define TIM_PWM             0
 #define TIM_HalfMode        1
@@ -44,8 +38,26 @@ typedef enum
 
 
 
+/*************************Режимы для полной ширины*****************************/
+#define FULL_ONE_SHOT           0
+#define FULL_ONE_SHOT_UP        1
+#define FULL_ONE_PERIODIC       2
+#define FULL_ONE_PERIODIC_UP    3
+#define FULL_ONE_RTC            4
 
 
+
+/*************************Режимы для режима захвата*****************************/
+#define CAP_COUNT               1
+#define CAP_COUNT_UP            2
+#define CAP_TIME                3
+#define CAP_TIME_UP             4
+
+
+
+
+
+#define MODE_NOT_USED           0xFF
 
 
 
@@ -188,6 +200,10 @@ RESULT_TIM SetLoad_TIM(uint32_t Tim,uint32_t channel,uint32_t value);
 
 
 
+/*************************************Второй вариант инициализации**********************/
+RESULT_TIM TIM_Initilize(uint8_t N_tim,uint8_t Mode,uint8_t channel,uint8_t HalfMode,uint8_t full_Mode,uint8_t cap_Mode);
+/******************Обработчик прерываний Таймер 0**************************/
+void Timer0BIntHandler(void);
 
 
 
