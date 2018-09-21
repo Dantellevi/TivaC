@@ -172,8 +172,10 @@ RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt);
  * channel-индификатор одного из подтаймеров
  *              TIMER_A
  *              TIMER_B
+ *              TIMER_BOTH
  * value-значение предделителя
- *
+ * Example:
+ *  SetPrescaler_TIM(TIMER0_BASE,TIMER_B,26)
  *
  */
 RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value);
@@ -202,6 +204,20 @@ RESULT_TIM SetLoad_TIM(uint32_t Tim,uint32_t channel,uint32_t value);
 
 /*************************************Второй вариант инициализации**********************/
 RESULT_TIM TIM_Initilize(uint32_t N_tim,uint8_t Mode,uint8_t channel,uint8_t HalfMode,uint8_t full_Mode,uint8_t cap_Mode);
+/************************Регистрация обработчика события********************/
+/*
+ * * Параметы:
+ * Tim-адрес таймера
+ *              TIMER0_BASE,
+ *              TIMER1_BASE,
+ *              TIMER2_BASE,
+ *              TIMER3_BASE,
+ *              TIMER4_BASE,
+ *              TIMER5_BASE
+ * RegisrationIntHandler(TIMER0_BASE)
+ *
+ */
+RESULT_TIM RegisrationIntHandler(uint32_t Timer);
 
 
 

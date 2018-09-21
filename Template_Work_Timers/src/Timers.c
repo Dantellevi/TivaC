@@ -1,65 +1,69 @@
 #include "Timers.h"
 
+uint32_t Tim_Mode[6];//флаг для указания режима прерывания
+uint32_t Tim_globalChannel[6];//канал работы таймера , таймер А, таймер В, или общий
 
 
-
-/******************Обработчик прерываний Таймер 0**************************/
+/******************Обработчик прерываний Таймер0**************************/
 void Timer0BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+    //TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT)
+    TimerIntClear(TIMER0_BASE, Tim_Mode[0]);
 
 
 }
 
 
-
-/******************Обработчик прерываний Таймер 0**************************/
+/******************Обработчик прерываний Таймер1**************************/
 void Timer1BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER1_BASE, TIMER_TIMB_TIMEOUT);
+    TimerIntClear(TIMER1_BASE, Tim_Mode[1]);
 
 
 }
 
-
-/******************Обработчик прерываний Таймер 0**************************/
+/******************Обработчик прерываний Таймер2**************************/
 void Timer2BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER2_BASE, TIMER_TIMB_TIMEOUT);
+    TimerIntClear(TIMER2_BASE, Tim_Mode[2]);
 
 
 }
 
 
-/******************Обработчик прерываний Таймер 0**************************/
+/******************Обработчик прерываний Таймер3**************************/
 void Timer3BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER3_BASE, TIMER_TIMB_TIMEOUT);
+    TimerIntClear(TIMER3_BASE, Tim_Mode[3]);
 
 
 }
 
-/******************Обработчик прерываний Таймер 0**************************/
+
+/******************Обработчик прерываний Таймер3**************************/
 void Timer4BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER4_BASE, TIMER_TIMB_TIMEOUT);
+    TimerIntClear(TIMER4_BASE, Tim_Mode[4]);
 
 
 }
 
-/******************Обработчик прерываний Таймер 0**************************/
+
+/******************Обработчик прерываний Таймер3**************************/
 void Timer5BIntHandler(void)
 {
     // Очистка флага прерывания таймера
-    TimerIntClear(TIMER5_BASE, TIMER_TIMB_TIMEOUT);
+    TimerIntClear(TIMER5_BASE, Tim_Mode[5]);
 
 
 }
+
+
 
 
 /**********************Функция инициализации таймера для заданного режима**********/
@@ -75,33 +79,39 @@ RESULT_TIM Timer_init(uint32_t Timer,uint32_t Mode)
         case TIMER0_BASE:
         {
             TimerConfigure(Timer,Mode);
+
             break;
         }
 
         case TIMER1_BASE:
         {
+
           TimerConfigure(Timer,Mode);
           break;
         }
 
         case TIMER2_BASE:
         {
+
           TimerConfigure(Timer,Mode);
           break;
         }
 
         case TIMER3_BASE:
         {
+
           TimerConfigure(Timer,Mode);
           break;
         }
         case TIMER4_BASE:
         {
+
           TimerConfigure(Timer,Mode);
           break;
         }
         case TIMER5_BASE:
         {
+
           TimerConfigure(Timer,Mode);
           break;
         }
@@ -111,6 +121,7 @@ RESULT_TIM Timer_init(uint32_t Timer,uint32_t Mode)
 
 
     }
+
 
     return TIM_OK;
 }
@@ -149,6 +160,51 @@ RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt)
     }
     else
     {
+        switch(Timer)
+            {
+                case TIMER0_BASE:
+                {
+                   Tim_Mode[0]=ModeInt;
+                    break;
+                }
+
+                case TIMER1_BASE:
+                {
+                    Tim_Mode[1]=ModeInt;
+
+                  break;
+                }
+
+                case TIMER2_BASE:
+                {
+                  Tim_Mode[2]=ModeInt;
+
+                  break;
+                }
+
+                case TIMER3_BASE:
+                {
+                  Tim_Mode[3]=ModeInt;
+
+                  break;
+                }
+                case TIMER4_BASE:
+                {
+                  Tim_Mode[4]=ModeInt;
+
+                  break;
+                }
+                case TIMER5_BASE:
+                {
+                  Tim_Mode[5]=ModeInt;
+
+                  break;
+                }
+                default:
+                    return TIM_ERROR;
+      }
+
+
       if(en)//вкл. прерывания
       {
           TimerIntEnable(Timer, ModeInt);
@@ -160,6 +216,81 @@ RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt)
 
       return TIM_OK;
     }
+}
+
+
+/************************Регистрация обработчика события********************/
+/*
+ * * Параметы:
+ * Tim-адрес таймера
+ *              TIMER0_BASE,
+ *              TIMER1_BASE,
+ *              TIMER2_BASE,
+ *              TIMER3_BASE,
+ *              TIMER4_BASE,
+ *              TIMER5_BASE
+ * RegisrationIntHandler(TIMER0_BASE)
+ *
+ */
+RESULT_TIM RegisrationIntHandler(uint32_t Timer)
+{
+    if(Timer!=TIMER0_BASE ||Timer!=TIMER1_BASE ||Timer!=TIMER2_BASE||Timer!=TIMER3_BASE||Timer!=TIMER4_BASE||Timer!=TIMER5_BASE)
+           {
+               return TIM_ERROR;
+           }
+
+       else
+           {
+           switch(Timer)
+                       {
+                           case TIMER0_BASE:
+                           {
+
+                              TimerIntRegister (Timer, Tim_globalChannel[0], Timer0BIntHandler);
+                               break;
+                           }
+
+                           case TIMER1_BASE:
+                           {
+
+                               TimerIntRegister (Timer, Tim_globalChannel[1], Timer1BIntHandler);
+                             break;
+                           }
+
+                           case TIMER2_BASE:
+                           {
+
+                             TimerIntRegister (Timer, Tim_globalChannel[2], Timer2BIntHandler);
+                             break;
+                           }
+
+                           case TIMER3_BASE:
+                           {
+
+                             TimerIntRegister (Timer, Tim_globalChannel[3], Timer3BIntHandler);
+                             break;
+                           }
+                           case TIMER4_BASE:
+                           {
+
+                             TimerIntRegister (Timer, Tim_globalChannel[4], Timer4BIntHandler);
+                             break;
+                           }
+                           case TIMER5_BASE:
+                           {
+
+
+                             TimerIntRegister (Timer, Tim_globalChannel[5], Timer5BIntHandler);
+                             break;
+                           }
+                           default:
+                               return TIM_ERROR;
+                 }
+
+
+
+               return TIM_OK;
+           }
 }
 
 
@@ -177,8 +308,10 @@ RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt)
  * channel-индификатор одного из подтаймеров
  *              TIMER_A
  *              TIMER_B
+ *              TIMER_BOTH
  * value-значение предделителя
- *
+ * Example:
+ *  SetPrescaler_TIM(TIMER0_BASE,TIMER_B,26)
  *
  */
 RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
@@ -190,7 +323,57 @@ RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
 
     else
         {
-            TimerPrescaleSet (Tim, channel, 16);
+                    switch(Tim)
+                               {
+                                   case TIMER0_BASE:
+                                   {
+
+                                       Tim_globalChannel[0]=channel;
+                                       TimerPrescaleSet (TIMER0_BASE, Tim_globalChannel[0], value);
+                                       break;
+                                   }
+
+                                   case TIMER1_BASE:
+                                   {
+
+                                       Tim_globalChannel[1]=channel;
+                                       TimerPrescaleSet (TIMER1_BASE, Tim_globalChannel[1], value);
+                                     break;
+                                   }
+
+                                   case TIMER2_BASE:
+                                   {
+
+                                       Tim_globalChannel[2]=channel;
+                                       TimerPrescaleSet (TIMER2_BASE, Tim_globalChannel[2], value);
+                                     break;
+                                   }
+
+                                   case TIMER3_BASE:
+                                   {
+
+                                       Tim_globalChannel[3]=channel;
+                                       TimerPrescaleSet (TIMER3_BASE, Tim_globalChannel[3], value);
+                                     break;
+                                   }
+                                   case TIMER4_BASE:
+                                   {
+
+                                       Tim_globalChannel[4]=channel;
+                                       TimerPrescaleSet (TIMER4_BASE, Tim_globalChannel[4], value);
+                                     break;
+                                   }
+                                   case TIMER5_BASE:
+                                   {
+                                       Tim_globalChannel[5]=channel;
+                                       TimerPrescaleSet (TIMER5_BASE, Tim_globalChannel[5], value);
+                                     break;
+                                   }
+                                   default:
+                                       return TIM_ERROR;
+                         }
+
+
             return TIM_OK;
         }
 }
@@ -214,8 +397,10 @@ RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
  * channel-индификатор одного из подтаймеров
  *              TIMER_A
  *              TIMER_B
+ *              TIMER_BOTH
  * value-значение тиков
- *
+ * Example:
+ *SetLoad_TIM(TIMER0_BASE,TIMER_A,1234);
  *
  */
 RESULT_TIM SetLoad_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
@@ -228,11 +413,92 @@ RESULT_TIM SetLoad_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
 
         else
             {
-                TimerLoadSet (Tim, channel, value);
+            switch(Tim)
+                                           {
+                                               case TIMER0_BASE:
+                                               {
+
+                                                   Tim_globalChannel[0]=channel;
+                                                   TimerLoadSet (TIMER0_BASE, Tim_globalChannel[0], value);
+                                                   break;
+                                               }
+
+                                               case TIMER1_BASE:
+                                               {
+
+                                                   Tim_globalChannel[1]=channel;
+                                                   TimerLoadSet (TIMER1_BASE, Tim_globalChannel[1], value);
+                                                   break;
+                                               }
+
+                                               case TIMER2_BASE:
+                                               {
+
+                                                   Tim_globalChannel[2]=channel;
+                                                   TimerLoadSet (TIMER2_BASE, Tim_globalChannel[2], value);
+                                                   break;
+                                               }
+
+                                               case TIMER3_BASE:
+                                               {
+
+                                                   Tim_globalChannel[3]=channel;
+                                                   TimerLoadSet (TIMER3_BASE, Tim_globalChannel[3], value);
+                                                   break;
+                                               }
+                                               case TIMER4_BASE:
+                                               {
+
+                                                   Tim_globalChannel[4]=channel;
+                                                   TimerLoadSet (TIMER4_BASE, Tim_globalChannel[4], value);
+                                                   break;
+                                               }
+                                               case TIMER5_BASE:
+                                               {
+                                                   Tim_globalChannel[5]=channel;
+                                                   TimerLoadSet (TIMER5_BASE, Tim_globalChannel[5], value);
+                                                   break;
+                                               }
+                                               default:
+                                                   return TIM_ERROR;
+                                     }
+
+
                 return TIM_OK;
             }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

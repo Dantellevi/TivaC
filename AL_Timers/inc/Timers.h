@@ -24,6 +24,7 @@ typedef struct
     uint32_t COnfigReg;
     uint32_t param;
     uint32_t par_Int;
+    uint32_t param_EnInt;
 
 }ModeTimerDef;
 
@@ -47,6 +48,8 @@ void TIM_ToggleStatus(TimerConfigDef *tim,bool sw);
 void ToggleInterrupt(TimerConfigDef *tim,bool sw);
 /**********************Функция установки предделителя*****************/
 void SetValuePresceler(TimerConfigDef *tim,uint32_t val);
+/************************Функция регистрации прерываний************/
+void RegisterInterrupt(TimerConfigDef *tim);
 
 
 
