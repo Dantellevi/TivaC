@@ -356,7 +356,7 @@ RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
                                    {
 
 
-                                       TimerPrescaleSet (TIMER1_BASE, channel, value);
+                                     TimerPrescaleSet (TIMER1_BASE, channel, value);
                                      break;
                                    }
 
@@ -364,7 +364,7 @@ RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
                                    {
 
 
-                                       TimerPrescaleSet (TIMER2_BASE, channel, value);
+                                     TimerPrescaleSet (TIMER2_BASE, channel, value);
                                      break;
                                    }
 
@@ -372,20 +372,20 @@ RESULT_TIM SetPrescaler_TIM(uint32_t Tim,uint32_t channel,uint32_t value)
                                    {
 
 
-                                       TimerPrescaleSet (TIMER3_BASE, channel, value);
+                                     TimerPrescaleSet (TIMER3_BASE, channel, value);
                                      break;
                                    }
                                    case TIMER4_BASE:
                                    {
 
 
-                                       TimerPrescaleSet (TIMER4_BASE, channel, value);
+                                     TimerPrescaleSet (TIMER4_BASE, channel, value);
                                      break;
                                    }
                                    case TIMER5_BASE:
                                    {
 
-                                       TimerPrescaleSet (TIMER5_BASE, channel, value);
+                                     TimerPrescaleSet (TIMER5_BASE, channel, value);
                                      break;
                                    }
                                    default:

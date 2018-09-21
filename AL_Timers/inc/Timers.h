@@ -39,6 +39,14 @@ typedef struct
 
 
 
+typedef enum
+{
+    TIM_ERROR,
+    TIM_OK
+}RESULT_TIMDef;
+
+
+
 /*********************Инициализация таймера ******************************/
 void TIM_Init(TimerConfigDef *tim);
 
