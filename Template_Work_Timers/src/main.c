@@ -24,7 +24,7 @@ void main(void)
     // Enable processor interrupts.
     //
        IntMasterEnable();
-       Innterupt_TIM(true,TIMER0_BASE,TIMER_TIMB_TIMEOUT);
+       Innterupt_TIM(true,TIMER0_BASE,TIMER_TIMB_TIMEOUT,INT_TIMER0B);
        //вкл. Таймер
        TimerEnable(TIMER0_BASE,TIMER_B);
 

@@ -155,7 +155,7 @@ RESULT_TIM Timer_init(uint32_t Timer,uint32_t Mode);
                 TIMER_CAPA_MATCH - Capture A match interrupt
                 TIMER_TIMA_TIMEOUT - Timer A timeout interrupt
  */
-RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt);
+RESULT_TIM Innterupt_TIM(bool en,uint32_t Timer,uint32_t ModeInt,uint32_t vectorInterrupt);
 
 
 
@@ -214,10 +214,13 @@ RESULT_TIM TIM_Initilize(uint32_t N_tim,uint8_t Mode,uint8_t channel,uint8_t Hal
  *              TIMER3_BASE,
  *              TIMER4_BASE,
  *              TIMER5_BASE
- * RegisrationIntHandler(TIMER0_BASE)
+ * channel-индификатор одного из подтаймеров
+ *              TIMER_A
+ *              TIMER_B
+ * RegisrationIntHandler(TIMER0_BASE,TIMER_A)
  *
  */
-RESULT_TIM RegisrationIntHandler(uint32_t Timer);
+RESULT_TIM RegisrationIntHandler(uint32_t Timer,uint32_t channel);
 
 
 
