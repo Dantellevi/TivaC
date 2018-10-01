@@ -1,0 +1,1 @@
+"./tm4c1230c3pm_startup_ccs.obj" "./Src/Main.obj" "../tm4c1230c3pm.cmd" -llibc.a -l"D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib" 

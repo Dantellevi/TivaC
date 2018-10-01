@@ -1,0 +1,1 @@
+"./tm4c129xnczad_startup_ccs.obj" "./src/main.obj" "../tm4c129xnczad.cmd" -llibc.a -l"D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib" 
