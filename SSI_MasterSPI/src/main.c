@@ -42,21 +42,21 @@
 
 void InitPeripheral(void)
 {
-    //Настройка тактирования MPU
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MPU
     SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                                SYSCTL_XTAL_16MHZ);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);//тактирование порта А
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);//тактирование интерфейса SSI
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SSI
 
-    GPIOPinConfigure(GPIO_PA2_SSI0CLK);//ножка тактирование
-    GPIOPinConfigure(GPIO_PA3_SSI0FSS);//ножка CS
-    GPIOPinConfigure(GPIO_PA4_SSI0RX); // ножка RX(MISO)
-    GPIOPinConfigure(GPIO_PA5_SSI0TX); // ножка TX(MOSI)
+    GPIOPinConfigure(GPIO_PA2_SSI0CLK);//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    GPIOPinConfigure(GPIO_PA3_SSI0FSS);//пїЅпїЅпїЅпїЅпїЅ CS
+    GPIOPinConfigure(GPIO_PA4_SSI0RX); // пїЅпїЅпїЅпїЅпїЅ RX(MISO)
+    GPIOPinConfigure(GPIO_PA5_SSI0TX); // пїЅпїЅпїЅпїЅпїЅ TX(MOSI)
     GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5 | GPIO_PIN_4 | GPIO_PIN_3 |
                        GPIO_PIN_2);
-    //интерфейс SSI(SSI0,тактирование MPU,полярность  CLK,режим мастер, скорость, формат)
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SSI(SSI0,пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ MPU,пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  CLK,пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ)
     SSIConfigSetExpClk(SSI0_BASE,SysCtlClockGet(),SSI_FRF_MOTO_MODE_0,SSI_MODE_MASTER,1000000,8);
-    SSIEnable(SSI0_BASE);// Вкл.интерфейс SSI
+    SSIEnable(SSI0_BASE);// пїЅпїЅпїЅ.пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SSI
 
 
 }
@@ -102,11 +102,24 @@ void SendByteSPI(uint8_t B)
 
 void LTC2664IUH_SendCommand(uint8_t Command,uint8_t Address,uint16_t data)
 {
-    uint32_t Bufcommand;
+    uint32_t Bufcommand=0x0000000;
     uint8_t temp=Command|Address;
     Bufcommand=(Bufcommand<<24)|temp;
     Bufcommand|=data;
     SSI_SendSPI(Bufcommand);
+    if()
+    {
+
+    }
+    else if()
+    {
+
+    }
+    else if()
+    {
+
+    }
+
 
 }
 
