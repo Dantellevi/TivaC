@@ -42,21 +42,21 @@
 
 void InitPeripheral(void)
 {
-    //Настройка тактирования
+    //��������� ������������ MPU
     SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                                SYSCTL_XTAL_16MHZ);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);//подключения портов тактирование
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);//подключение тактирования SSI
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);//������������ ����� �
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_SSI0);//������������ ���������� SSI
 
-    GPIOPinConfigure(GPIO_PA2_SSI0CLK);//конфигурирование CLK
-    GPIOPinConfigure(GPIO_PA3_SSI0FSS);//конфигурирование CS
-    GPIOPinConfigure(GPIO_PA4_SSI0RX); //   RX(MISO)
-    GPIOPinConfigure(GPIO_PA5_SSI0TX); //  TX(MOSI)
+    GPIOPinConfigure(GPIO_PA2_SSI0CLK);//����� ������������
+    GPIOPinConfigure(GPIO_PA3_SSI0FSS);//����� CS
+    GPIOPinConfigure(GPIO_PA4_SSI0RX); // ����� RX(MISO)
+    GPIOPinConfigure(GPIO_PA5_SSI0TX); // ����� TX(MOSI)
     GPIOPinTypeSSI(GPIO_PORTA_BASE, GPIO_PIN_5 | GPIO_PIN_4 | GPIO_PIN_3 |
                        GPIO_PIN_2);
-    //основные настройки SSI(SSI0, тактирование MPU,полярность  CLK,мастер, пропускная способность(скорость), делитель)
+    //��������� SSI(SSI0,������������ MPU,����������  CLK,����� ������, ��������, ������)
     SSIConfigSetExpClk(SSI0_BASE,SysCtlClockGet(),SSI_FRF_MOTO_MODE_0,SSI_MODE_MASTER,1000000,8);
-    SSIEnable(SSI0_BASE);// включение SSI
+    SSIEnable(SSI0_BASE);// ���.��������� SSI
 
 
 }
@@ -100,14 +100,26 @@ void SendByteSPI(uint8_t B)
 
 
 
-void LTC2664IUH_SendData(uint8_t Command,uint8_t Address,uint16_t data)
+void LTC2664IUH_SendCommand(uint8_t Command,uint8_t Address,uint16_t data)
 {
-    uint32_t Bufcommand=0x0000000;//буффер для отправки в ЦАП
-    uint8_t temp=Command|Address;   //формируем 8 бит типа :C3C2C1C0A3A2A1A0
-    Bufcommand|=temp;//заносим данные 000000000000000000000000C3C2C1C0A3A2A1A0
-    Bufcommand<<=16;// сдвигаем данные в определнную позицию 00000000C3C2C1C0A3A2A1A00000000000000000
-    Bufcommand|=data;//заносим данные для ЦАП: 00000000
-    SSI_SendSPI(Bufcommand<<8);//отправляем 24 битный кадр в ЦАП: C3C2C1C0A3A2A1A0d15d14d13d12d11d10d9d8d7d6d5d4d3d2d1d0
+    uint32_t Bufcommand=0x0000000;
+    uint8_t temp=Command|Address;
+    Bufcommand=(Bufcommand<<24)|temp;
+    Bufcommand|=data;
+    SSI_SendSPI(Bufcommand);
+    if()
+    {
+
+    }
+    else if()
+    {
+
+    }
+    else if()
+    {
+
+    }
+
 
 }
 
