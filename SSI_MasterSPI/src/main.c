@@ -22,7 +22,7 @@
 #define WRITE_SPAN_ALL                      0b11100000
 #define POWER_UP_UPDATE_N                   0b00010000
 #define POWER_UP_UPDATE_ALL                 0b10010000
-#define WRITE_CODE_N_POWER_UP_UPDATE_N      0b10110000
+#define WRITE_CODE_N_POWER_UP_UPDATE_N      0b00110000
 #define WRITE_CODE_N_POWER_UP_UPDATE_ALL    0b00100000
 #define WRITE_CODE_ALL_POWER_UP_UPDATE_ALL  0b10100000
 #define POWER_DOWN_N                        0b01000000
@@ -93,6 +93,7 @@
 
 //=============================Toggle Operations===========================
 /*
+ * Имеется два выходных регистра А и В. По команде данные будут выставляться либо из А регистра либо из В.
  *
  * ================Toggle Select Syntax====================
  * FORMAT: 1100XXXXXXXXXXXXXXXXT3T2T1T0
@@ -154,10 +155,8 @@ void InitPeripheral(void)
 /***********************Функция получения значения из SPI**********************/
 void SSI_GetValueSPI(uint32_t *buf)
 {
-    while(SSIDataGetNonBlocking(SSI0_BASE, buf))
-    {
+    while(SSIDataGetNonBlocking(SSI0_BASE, buf));
 
-    }
 }
 
 
@@ -171,10 +170,8 @@ void SSI_SendbufSPI(uint32_t *pBuf, uint32_t *count)
     {
         SSIDataPut(SSI0_BASE,pBuf[i]);
     }
-    while(SSIBusy(SSI0_BASE))
-   {
+    while(SSIBusy(SSI0_BASE));
 
-   }
 }
 
 
@@ -213,6 +210,7 @@ void LTC2664IUH_SendData(uint8_t Command,uint8_t Address,uint16_t data)
 }
 
 
+/***************************Функция записи команд*******************************/
 void LTC2664IUH_SendCommand(uint8_t TypeCommand,uint8_t MaskCom,uint8_t Address,uint16_t data)
 {
     switch(TypeCommand)
@@ -253,23 +251,88 @@ void LTC2664IUH_SendCommand(uint8_t TypeCommand,uint8_t MaskCom,uint8_t Address,
                        bufCom|=data;//0b00000000011001000000001110100011
                        SSI_SendSPI(bufCom<<8);
                        break;
-            break;
+
         }
 
         case ANALOG_MUX:
         {
+            //FORMAT: 1011XXXXXXXXXXXXXXXM4M3M2M1M0
+            /*        |___|______________|_________|
+             *          |       |           |
+             *          |       |           |
+             MUX COMMAND|       |           |
+             *                  |           |
+             *   Data(DON'T CARE)           |
+             *                     MUX CONTROL CODE
+             *
+             *
+             */
 
+            uint8_t temp=ANALOG_MUX;   //0b10110000
+            uint32_t bufCom;
+            bufCom=temp;//0b00000000000000000000000010110000
+            bufCom<<=16;  //0b00000000101100000000000000000000
+            data|=MaskCom;//0b00000000000M4M3M2M1M0
+            bufCom|=data; //0b000000001011000000000000000M4M3M2M1M0
+            SSI_SendSPI(bufCom<<8);
             break;
         }
         case TOOGLE_SELECT:
         {
+            /* ================Toggle Select Syntax====================
+            * FORMAT: 1100XXXXXXXXXXXXXXXXT3T2T1T0
+            *         |__|________________|_______|
+            *           |          |           |
+            *           |          |           |
+            TOGGLE SELECT          |           |
+            *        Data(DON'T CARE)          |
+                      TOGGLE SELECT BITS(ONE FOR EACH CHANNEL)
 
+           Write code channel 3 (code = 4096) to register A
+           00000011 00010000 00000000   //command write N or update N
+           2) Toggle Select (set bit T3)
+           11000000 00000000 00001000 //toggle select
+           3) Write code channel 3 (code = 4200) to register B
+           00000011 00010000 01101000
+           */
+
+            LTC2664IUH_SendData(WRITE_CODE_N_POWER_UP_UPDATE_N,Address,data);
+            uint8_t temp=TOOGLE_SELECT;   //0b11000000
+            uint32_t bufCom;
+            bufCom=temp;//0b00000000000000000000000011000000
+            bufCom<<=16;//0b00000001100000000000000000000000
+            uint8_t adr_mask;
+            if(Address==ADRESS_DAC0)
+            {
+                adr_mask=0b00000001;
+            }
+            else if(Address==ADRESS_DAC1)
+            {
+                adr_mask=0b00000010;
+            }
+            else if(Address==ADRESS_DAC2)
+            {
+                adr_mask=0b00000100;
+            }
+            else if(Address==ADRESS_DAC3)
+            {
+                adr_mask=0b00001000;
+            }
+            bufCom|=adr_mask;
+            bufCom|=data;
+            SSI_SendSPI(bufCom<<8);
             break;
         }
 
         case GLOBAL_SELECT:
         {
-
+            uint8_t temp=GLOBAL_SELECT;
+            uint32_t bufCom;
+            bufCom=temp;
+            bufCom<<=16;
+            data|=MaskCom;
+            bufCom|=data;
+            SSI_SendSPI(bufCom<<8);
             break;
         }
     }

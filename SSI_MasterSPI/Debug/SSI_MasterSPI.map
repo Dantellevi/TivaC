@@ -1,17 +1,17 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Fri Oct  5 16:43:26 2018
+>> Linked Mon Oct  8 15:53:10 2018
 
 OUTPUT FILE NAME:   <SSI_MasterSPI.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000078d
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000091d
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00040000  0000093c  0003f6c4  R  X
+  FLASH                 00000000   00040000  00000acc  0003f534  R  X
   SRAM                  20000000   00008000  00000200  00007e00  RW X
 
 
@@ -19,10 +19,10 @@ SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-00000000    00000000    0000093c   0000093c    r-x
+00000000    00000000    00000acc   00000acc    r-x
   00000000    00000000    0000026c   0000026c    r-- .intvecs
-  0000026c    0000026c    000005d4   000005d4    r-x .text
-  00000840    00000840    000000fc   000000fc    r-- .const
+  0000026c    0000026c    00000764   00000764    r-x .text
+  000009d0    000009d0    000000fc   000000fc    r-- .const
 20000000    20000000    00000200   00000000    rw-
   20000000    20000000    00000200   00000000    rw- .stack
 
@@ -35,30 +35,30 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    0000026c     
                   00000000    0000026c     tm4c123gh6pm_startup_ccs.obj (.intvecs)
 
-.text      0    0000026c    000005d4     
-                  0000026c    00000132     driverlib.lib : gpio.obj (.text:GPIOPadConfigSet)
-                  0000039e    00000002     --HOLE-- [fill = 0]
-                  000003a0    00000130     main.obj (.text)
-                  000004d0    00000110     driverlib.lib : sysctl.obj (.text:SysCtlClockGet)
-                  000005e0    000000f4                   : sysctl.obj (.text:SysCtlClockSet)
-                  000006d4    00000048                   : gpio.obj (.text:GPIOPinConfigure)
-                  0000071c    0000003c                   : ssi.obj (.text:SSIConfigSetExpClk)
-                  00000758    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
-                  0000078c    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
-                  000007bc    0000002a     driverlib.lib : gpio.obj (.text:GPIODirModeSet)
-                  000007e6    00000012                   : gpio.obj (.text:GPIOPinTypeSSI)
-                  000007f8    00000012                   : ssi.obj (.text:SSIDataGetNonBlocking)
-                  0000080a    0000000c     tm4c123gh6pm_startup_ccs.obj (.text)
-                  00000816    0000000a     driverlib.lib : ssi.obj (.text:SSIDataPut)
-                  00000820    0000000a                   : ssi.obj (.text:SSIEnable)
-                  0000082a    00000008                   : ssi.obj (.text:SSIBusy)
-                  00000832    00000006                   : sysctl.obj (.text:SysCtlDelay)
-                  00000838    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
-                  0000083c    00000004                                   : exit.c.obj (.text:abort:abort)
+.text      0    0000026c    00000764     
+                  0000026c    000002c0     main.obj (.text)
+                  0000052c    00000132     driverlib.lib : gpio.obj (.text:GPIOPadConfigSet)
+                  0000065e    00000002     --HOLE-- [fill = 0]
+                  00000660    00000110                   : sysctl.obj (.text:SysCtlClockGet)
+                  00000770    000000f4                   : sysctl.obj (.text:SysCtlClockSet)
+                  00000864    00000048                   : gpio.obj (.text:GPIOPinConfigure)
+                  000008ac    0000003c                   : ssi.obj (.text:SSIConfigSetExpClk)
+                  000008e8    00000034                   : sysctl.obj (.text:SysCtlPeripheralEnable)
+                  0000091c    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
+                  0000094c    0000002a     driverlib.lib : gpio.obj (.text:GPIODirModeSet)
+                  00000976    00000012                   : gpio.obj (.text:GPIOPinTypeSSI)
+                  00000988    00000012                   : ssi.obj (.text:SSIDataGetNonBlocking)
+                  0000099a    0000000c     tm4c123gh6pm_startup_ccs.obj (.text)
+                  000009a6    0000000a     driverlib.lib : ssi.obj (.text:SSIDataPut)
+                  000009b0    0000000a                   : ssi.obj (.text:SSIEnable)
+                  000009ba    00000008                   : ssi.obj (.text:SSIBusy)
+                  000009c2    00000006                   : sysctl.obj (.text:SysCtlDelay)
+                  000009c8    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  000009cc    00000004                                   : exit.c.obj (.text:abort:abort)
 
-.const     0    00000840    000000fc     
-                  00000840    00000090     driverlib.lib : gpio.obj (.const:g_pui32GPIOBaseAddrs)
-                  000008d0    0000006c                   : sysctl.obj (.const:g_pui32Xtals)
+.const     0    000009d0    000000fc     
+                  000009d0    00000090     driverlib.lib : gpio.obj (.const:g_pui32GPIOBaseAddrs)
+                  00000a60    0000006c                   : sysctl.obj (.const:g_pui32Xtals)
 
 .cinit     0    00000000    00000000     UNINITIALIZED
 
@@ -79,9 +79,9 @@ MODULE SUMMARY
        Total:                         12     620       0      
                                                               
     .\src\
-       main.obj                       304    0         0      
+       main.obj                       704    0         0      
     +--+------------------------------+------+---------+---------+
-       Total:                         304    0         0      
+       Total:                         704    0         0      
                                                               
     D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib
        sysctl.obj                     574    108       0      
@@ -99,34 +99,35 @@ MODULE SUMMARY
                                                               
        Stack:                         0      0         512    
     +--+------------------------------+------+---------+---------+
-       Grand Total:                   1490   872       512    
+       Grand Total:                   1890   872       512    
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 address   name                  
 -------   ----                  
-0000083d  C$$EXIT               
-000007bd  GPIODirModeSet        
-0000026d  GPIOPadConfigSet      
-000006d5  GPIOPinConfigure      
-000007e7  GPIOPinTypeSSI        
-000003a1  InitPeripheral        
-0000046f  LTC2664IUH_SendData   
-0000080b  ResetISR              
-0000082b  SSIBusy               
-0000071d  SSIConfigSetExpClk    
-000007f9  SSIDataGetNonBlocking 
-00000817  SSIDataPut            
-00000821  SSIEnable             
-000003ff  SSI_GetValueSPI       
-0000044f  SSI_SendSPI           
-00000411  SSI_SendbufSPI        
-0000045d  SendByteSPI           
-000004d1  SysCtlClockGet        
-000005e1  SysCtlClockSet        
-00000833  SysCtlDelay           
-00000759  SysCtlPeripheralEnable
+000009cd  C$$EXIT               
+0000094d  GPIODirModeSet        
+0000052d  GPIOPadConfigSet      
+00000865  GPIOPinConfigure      
+00000977  GPIOPinTypeSSI        
+0000026d  InitPeripheral        
+0000037f  LTC2664IUH_SendCommand
+0000033b  LTC2664IUH_SendData   
+0000099b  ResetISR              
+000009bb  SSIBusy               
+000008ad  SSIConfigSetExpClk    
+00000989  SSIDataGetNonBlocking 
+000009a7  SSIDataPut            
+000009b1  SSIEnable             
+000002cb  SSI_GetValueSPI       
+0000031b  SSI_SendSPI           
+000002dd  SSI_SendbufSPI        
+00000329  SendByteSPI           
+00000661  SysCtlClockGet        
+00000771  SysCtlClockSet        
+000009c3  SysCtlDelay           
+000008e9  SysCtlPeripheralEnable
 20000200  __STACK_END           
 00000200  __STACK_SIZE          
 20000200  __STACK_TOP           
@@ -138,12 +139,12 @@ ffffffff  __binit__
 ffffffff  __c_args__            
 UNDEFED   __mpu_init            
 20000000  __stack               
-0000078d  _c_int00_noinit_noargs
-00000839  _system_pre_init      
-0000083d  abort                 
+0000091d  _c_int00_noinit_noargs
+000009c9  _system_pre_init      
+000009cd  abort                 
 ffffffff  binit                 
 00000000  g_pfnVectors          
-000004b3  main                  
+00000511  main                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -153,31 +154,32 @@ address   name
 00000000  __TI_static_base__    
 00000000  g_pfnVectors          
 00000200  __STACK_SIZE          
-0000026d  GPIOPadConfigSet      
-000003a1  InitPeripheral        
-000003ff  SSI_GetValueSPI       
-00000411  SSI_SendbufSPI        
-0000044f  SSI_SendSPI           
-0000045d  SendByteSPI           
-0000046f  LTC2664IUH_SendData   
-000004b3  main                  
-000004d1  SysCtlClockGet        
-000005e1  SysCtlClockSet        
-000006d5  GPIOPinConfigure      
-0000071d  SSIConfigSetExpClk    
-00000759  SysCtlPeripheralEnable
-0000078d  _c_int00_noinit_noargs
-000007bd  GPIODirModeSet        
-000007e7  GPIOPinTypeSSI        
-000007f9  SSIDataGetNonBlocking 
-0000080b  ResetISR              
-00000817  SSIDataPut            
-00000821  SSIEnable             
-0000082b  SSIBusy               
-00000833  SysCtlDelay           
-00000839  _system_pre_init      
-0000083d  C$$EXIT               
-0000083d  abort                 
+0000026d  InitPeripheral        
+000002cb  SSI_GetValueSPI       
+000002dd  SSI_SendbufSPI        
+0000031b  SSI_SendSPI           
+00000329  SendByteSPI           
+0000033b  LTC2664IUH_SendData   
+0000037f  LTC2664IUH_SendCommand
+00000511  main                  
+0000052d  GPIOPadConfigSet      
+00000661  SysCtlClockGet        
+00000771  SysCtlClockSet        
+00000865  GPIOPinConfigure      
+000008ad  SSIConfigSetExpClk    
+000008e9  SysCtlPeripheralEnable
+0000091d  _c_int00_noinit_noargs
+0000094d  GPIODirModeSet        
+00000977  GPIOPinTypeSSI        
+00000989  SSIDataGetNonBlocking 
+0000099b  ResetISR              
+000009a7  SSIDataPut            
+000009b1  SSIEnable             
+000009bb  SSIBusy               
+000009c3  SysCtlDelay           
+000009c9  _system_pre_init      
+000009cd  C$$EXIT               
+000009cd  abort                 
 20000000  __stack               
 20000200  __STACK_END           
 20000200  __STACK_TOP           
@@ -189,4 +191,4 @@ ffffffff  __c_args__
 ffffffff  binit                 
 UNDEFED   __mpu_init            
 
-[38 symbols]
+[39 symbols]
