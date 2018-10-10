@@ -21,6 +21,9 @@ src/main.obj: D:/ti/TIVA/driverlib/timer.h
 src/main.obj: D:/ti/TIVA/driverlib/uart.h
 src/main.obj: D:/ti/TIVA/utils/uartstdio.h
 src/main.obj: D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/stdarg.h
+src/main.obj: D:/repos/TivaC/SSI_MasterSPI/inc/LTC2664IUH.h
+src/main.obj: D:/repos/TivaC/SSI_MasterSPI/inc/Main.h
+src/main.obj: D:/repos/TivaC/SSI_MasterSPI/inc/SPI.h
 
 ../src/main.c: 
 D:/repos/TivaC/SSI_MasterSPI/inc/Main.h: 
@@ -43,3 +46,6 @@ D:/ti/TIVA/driverlib/timer.h:
 D:/ti/TIVA/driverlib/uart.h: 
 D:/ti/TIVA/utils/uartstdio.h: 
 D:/Program\ Files/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.2.LTS/include/stdarg.h: 
+D:/repos/TivaC/SSI_MasterSPI/inc/LTC2664IUH.h: 
+D:/repos/TivaC/SSI_MasterSPI/inc/Main.h: 
+D:/repos/TivaC/SSI_MasterSPI/inc/SPI.h: 

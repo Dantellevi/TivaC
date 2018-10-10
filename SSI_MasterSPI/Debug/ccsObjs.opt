@@ -1,1 +1,1 @@
-"./tm4c123gh6pm_startup_ccs.obj" "./src/main.obj" "../tm4c123gh6pm.cmd" -llibc.a -l"D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib" 
+"./tm4c123gh6pm_startup_ccs.obj" "./src/LTC.obj" "./src/SPI.obj" "./src/main.obj" "../tm4c123gh6pm.cmd" -llibc.a -l"D:/ti/TIVA/driverlib/ccs/Debug/driverlib.lib" 

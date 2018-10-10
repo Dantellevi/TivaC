@@ -17,6 +17,8 @@
 #include "utils/uartstdio.h"
 
 
+#include "LTC2664IUH.h"
+#include "SPI.h"
 
 
 
