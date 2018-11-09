@@ -12,7 +12,7 @@ void Delay(void)
 }
 
 
-void SettingGPIO(void)
+void Setting(void)
 {
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE,GPIO_PIN_1);//pin 1 out
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE,GPIO_PIN_2);//pin 2 out
@@ -28,6 +28,7 @@ void main(void)
     //set clock(del|used osciliator as selected|use an external crystal or oscillator|Freq)
     SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_16MHZ);
+    Setting();
 
 
     while(1)

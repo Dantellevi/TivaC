@@ -30,7 +30,9 @@
 //
 //*****************************************************************************
 void ResetISR(void);
-
+static void NmiSR(void);
+static void FaultISR(void);
+static void IntDefaultHandler(void);
 
 //*****************************************************************************
 //
@@ -67,12 +69,16 @@ void (* const g_pfnVectors[])(void) =
     (void (*)(void))((uint32_t)&__STACK_TOP),
                                             // The initial stack pointer
     ResetISR,                               // The reset handler
-
+    NmiSR,                                  // The NMI handler
+    FaultISR,                               // The hard fault handler
+    IntDefaultHandler,                      // The MPU fault handler
+    IntDefaultHandler,                      // The bus fault handler
+    IntDefaultHandler,                      // The usage fault handler
     0,                                      // Reserved
     0,                                      // Reserved
     0,                                      // Reserved
     0,                                      // Reserved
-
+    IntDefaultHandler,                      // SVCall handler
     IntDefaultHandler,                      // Debug monitor handler
     0,                                      // Reserved
     IntDefaultHandler,                      // The PendSV handler
@@ -246,4 +252,49 @@ ResetISR(void)
 // by a debugger.
 //
 //*****************************************************************************
+static void
+NmiSR(void)
+{
+    //
+    // Enter an infinite loop.
+    //
+    while(1)
+    {
+    }
+}
 
+//*****************************************************************************
+//
+// This is the code that gets called when the processor receives a fault
+// interrupt.  This simply enters an infinite loop, preserving the system state
+// for examination by a debugger.
+//
+//*****************************************************************************
+static void
+FaultISR(void)
+{
+    //
+    // Enter an infinite loop.
+    //
+    while(1)
+    {
+    }
+}
+
+//*****************************************************************************
+//
+// This is the code that gets called when the processor receives an unexpected
+// interrupt.  This simply enters an infinite loop, preserving the system state
+// for examination by a debugger.
+//
+//*****************************************************************************
+static void
+IntDefaultHandler(void)
+{
+    //
+    // Go into an infinite loop.
+    //
+    while(1)
+    {
+    }
+}
