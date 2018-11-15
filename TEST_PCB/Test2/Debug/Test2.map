@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Fri Nov  9 09:04:27 2018
+>> Linked Thu Nov 15 08:16:04 2018
 
 OUTPUT FILE NAME:   <Test2.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 000005e5
